@@ -5,7 +5,8 @@ void main() {
     home: SafeArea(
       child: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.red[900], title: const Text("Hello World")),
+            backgroundColor: Colors.blue[500],
+            title: const Text("Hello World")),
         body: const Center(
           // child: const Text("Hello world!", textAlign: TextAlign.center),
           child: MySecondWidget(loading: false),
@@ -18,7 +19,6 @@ void main() {
 
 class MyOwnWidget extends StatelessWidget {
   final bool loading;
-
   const MyOwnWidget({super.key, required this.loading});
   @override
   Widget build(BuildContext context) {
@@ -38,25 +38,32 @@ class MySecondWidget extends StatefulWidget {
 }
 
 class MySecondWidgetState extends State<MySecondWidget> {
-  late bool loadingState;
+  late int count;
 
   @override
   void initState() {
     super.initState();
-    loadingState = widget.loading;
+    count = 0;
   }
 
   @override
   Widget build(BuildContext context) {
-    return loadingState
-        ? const CircularProgressIndicator()
-        : FloatingActionButton(
-            onPressed: onClickButton, child: const Icon(Icons.add));
+    return Column(
+      children: [
+        Text("Count: $count"),
+        ElevatedButton(
+          onPressed: onClickButton,
+          child: const Text("Click me"),
+        )
+      ],
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+    );
   }
 
   void onClickButton() {
     setState(() {
-      loadingState = !loadingState;
+      count++;
     });
   }
 }
